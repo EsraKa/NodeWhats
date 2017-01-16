@@ -1,4 +1,12 @@
 {
   "name": "WhatsUp",
-  "version": "0.0.1"
+  "version": "0.0.1",
+
+  "dependencies": {
+    //"mongodb": "^1.4.4",
+    //"express": "~4.12.4"
+
+    // Décommenter et faire un npm install pour installer les modules
+  }
 }
+
