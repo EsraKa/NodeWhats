@@ -3,10 +3,10 @@
   "version": "0.0.1",
 
   "dependencies": {
-    //"mongodb": "^1.4.4",
-    //"express": "~4.12.4"
+    "mongodb": "^2.2.19",
+    "express": "~4.12.4",
+    "socket.io": "1.4.5"
 
-    // Décommenter et faire un npm install pour installer les modules
   }
 }
 
