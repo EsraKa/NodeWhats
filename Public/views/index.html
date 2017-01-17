@@ -2,9 +2,60 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>What's Up ? </title>
+
+    <!-- CSS Materialize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+
 </head>
 <body>
+  <div class="container">
+    <div class="row">
+      <div class="col s12">
+        <span class="flow-text">WHAT'S UP ?</span>
+      </div>
+    </div>
 
+    <div class="row">
+
+      <div class="col s4">
+        <nav>
+          <div class="nav-wrapper teal darken-2">
+            <a href="#" class="brand-logo">
+            <img src="../src/images/yuna.jpg" alt="Person" class="circle responsive-img">
+            </a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+              <li><a href="calls.html">Calls</a></li>
+              <li><a href="texts.html">Texts</a></li>
+              <li><a href="contact.html">Contacts</a></li>
+            </ul>
+          </div>
+        </nav>
+        <div class="collection">
+          <a href="#!" class="collection-item"><span class="badge">1</span>Alan</a>
+          <a href="#!" class="collection-item"><span class="new badge">4</span>Alan</a>
+          <a href="#!" class="collection-item">Alan</a>
+          <a href="#!" class="collection-item"><span class="badge">14</span>Alan</a>
+        </div>
+      </div>
+
+      <div class="col s8">
+
+        <span class="flow-text">
+
+        </span>
+
+      </div>
+    </div>
+
+
+  </div>
 </body>
+
+  <!--  JavaScript Materialize-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
+  <script>
+  var socket = io.connect('http://localhost:8080');
+  </script>
 </html>
