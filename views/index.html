@@ -120,31 +120,62 @@
 
 
     socket.on('nouveau_client', function(pseudo) {
-      $('#zone_chat').prepend('<p><em>' + pseudo + ' a rejoint le Chat !</em></p>');
+      $('#zone_chat').append('<p><em>' + pseudo + ' a rejoint le Chat !</em></p>');
     })
 
-
     $('#formulaire_chat').submit(function () {
-      var message = $('#message').val();
-
-      socket.emit('message', message);
-      insereMessage(pseudo, message);
-      $('#message').val('').focus();
-
+      var text = parseEmoji($('#message').val());
+      var time = getTime();
+      var message = time + " " + text;
+      
+      if ($('#message').val()) { //prevent to send empty messages
+        socket.emit('message', message);
+        insereMessage(pseudo, message);
+        $('#message').val('').focus();
+        window.scrollTo(0,document.body.scrollHeight); //scroll to the bottom of the page
+        return false;
+      }
       return false;
     });
 
-
-
     function insereMessage(pseudo, message) {
 
-      $('#zone_chat').prepend('<p><strong>' + pseudo + '</strong> ' + message /*+ '<span class="metadata">' +
+      $('#zone_chat').append('<p><strong>' + pseudo + '</strong> ' + message /*+ '<span class="metadata">' +
       '<span class="time">' + moment().format('h:mm A') + '</span>' +
       '<span class="tick tick-animation">'+'</span>'+'</span>' +'</p>'*/);
-
     }
 
+    function parseEmoji(message) {
+      var arraySplitText = message.split(" ");
+      var text = "";
+      for ( var i = 0 ; i < arraySplitText.length; i++) {
+          if (arraySplitText[i] == ":)") {
+              arraySplitText[i] = "😁";
+          }
+          if (arraySplitText[i] == ":(") {
+              arraySplitText[i] = "😞";
+          }
+          if (arraySplitText[i] == ":p") {
+              arraySplitText[i] = "😋";
+          }
 
+          text += arraySplitText[i] + " ";
+      }
+      return text;
+  }
+
+  function getTime() {
+    var time = new Date();
+    var text = '[' + addZero(time.getHours())+':'+addZero(time.getMinutes())+':'+addZero(time.getSeconds()) + ']';
+    return text;
+  }
+
+  function addZero(i) {
+          if (i < 10) {
+              i = "0" + i;
+          }
+          return i;
+      }
 
   </script>
 </body>

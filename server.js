@@ -1,7 +1,3 @@
-/**
- * Created by Esra on 16/01/2017.
- */
-
 var app = require('express')()
 var server = require('http').createServer(app)
 var io = require('socket.io').listen(server)
@@ -56,4 +52,3 @@ socket.on('message', function (message) {
 
 });
   server.listen(8000);
-
