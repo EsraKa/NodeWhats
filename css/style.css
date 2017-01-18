@@ -16,6 +16,17 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
+  background-color: #fafafa;
+}
+
+.container{
+  width: 1300px;
+  padding-left: 70px;
+  border-right-width: 50px;
+  padding-right: 50px;
+  background-color: #008a7c;
+  height: 700px;
+  margin-top: 20px;
 }
 
 .page {
@@ -59,10 +70,15 @@ body {
   font-weight: 600;
 }
 
+.nav-wrapper{
+  background-color: #005e54;
+}
+
 /* Chat */
 
 .chat {
-  height: calc(100% - 69px);
+  width: 700px;
+  height: 500px;
 }
 
 .chat-container {
@@ -133,7 +149,7 @@ body {
   margin: 0 0 0 8px;
   overflow: hidden;
   white-space: nowrap;
-  width: 110px;
+  width: 200px;
 }
 
 .user-bar .status {
