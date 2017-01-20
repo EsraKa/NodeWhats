@@ -10,6 +10,7 @@ html {
 }
 
 body {
+  background: url("http://www.opengavel.com/wp-content/uploads/2014/06/turquoise-and-pink-wallpaper-9.jpg");
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "Roboto", sans-serif;
@@ -19,12 +20,22 @@ body {
   background-color: #fafafa;
 }
 
+.navbar .navbar-fixed{
+  background-color: transparent;
+  box-shadow: inset 0 10px 10px -10px #ffffff;
+}
+
+.navbar-brand>img {
+  display: block;
+  width: auto;
+}
+
 .container{
   width: 1300px;
   padding-left: 70px;
   border-right-width: 50px;
   padding-right: 50px;
-  background-color: #008a7c;
+  background-color: transparent;
   height: 700px;
   margin-top: 20px;
 }
@@ -89,7 +100,7 @@ body {
 
 .user-bar {
   height: 55px;
-  background: #005e54;
+  background: #008687;
   color: #fff;
   padding: 0 8px;
   font-size: 24px;
@@ -162,9 +173,9 @@ body {
 /* Conversation */
 
 .conversation {
-  height: calc(100% - 12px);
+  height: 500px;
   position: relative;
-  background: #efe7dd url("https://cloud.githubusercontent.com/assets/398893/15136779/4e765036-1639-11e6-9201-67e728e86f39.jpg") repeat;
+  background: rgba(0, 0, 0, 0.29);
   z-index: 0;
 }
 
@@ -191,7 +202,7 @@ body {
   margin-bottom: 5px;
 }
 
-.conversation .conversation-container:after {
+/*.conversation .conversation-container:after {
   content: "";
   display: table;
   clear: both;
@@ -272,39 +283,6 @@ body {
   transform: perspective(800px) rotateY(-179.9deg);
 }
 
-.message:first-child {
-  margin: 16px 0 8px;
-}
-
-.message.received {
-  background: #fff;
-  border-radius: 0px 5px 5px 5px;
-  float: left;
-}
-
-.message.received .metadata {
-  padding: 0 0 0 16px;
-}
-
-.message.received:after {
-  border-width: 0px 10px 10px 0;
-  border-color: transparent #fff transparent transparent;
-  top: 0;
-  left: -10px;
-}
-
-.message.sent {
-  background: #e1ffc7;
-  border-radius: 5px 0px 5px 5px;
-  float: right;
-}
-
-.message.sent:after {
-  border-width: 0px 0 10px 10px;
-  border-color: transparent transparent transparent #e1ffc7;
-  top: 0;
-  right: -10px;
-}
 
 /* Compose */
 

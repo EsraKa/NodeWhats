@@ -12,8 +12,16 @@ app.get('/', function(req, res) {
  res.sendFile(__dirname + '/views/index.html');
 });
 
+app.get('/home', function(req, res) {
+  res.sendFile(__dirname + '/views/home.html');
+});
+
 app.get('/css/style.css', function(req, res) {
   res.sendFile(__dirname + '/css/style.css');
+});
+
+app.get('/js/app.js', function(req, res) {
+  res.sendFile(__dirname + '/js/app.js');
 });
 
 
