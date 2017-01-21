@@ -70,3 +70,8 @@ function addZero(i) {
   return i;
 }
 
+function onClickButtonHappy(){
+  var text = document.getElementById("message").value;
+  document.getElementById("message").value = text + "😁";
+}
+
