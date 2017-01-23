@@ -75,3 +75,16 @@ function onClickButtonHappy(){
   document.getElementById("message").value = text + "😁";
 }
 
+function onCLickButton(emoji){
+  var text = document.getElementById("message").value;
+  document.getElementById("message").value = text + emoji;
+}
+
+function clickEmoji() {
+  if(document.getElementById('emoji').style.visibility == "visible") {
+    document.getElementById("emoji").style.visibility='hidden';
+  }
+  else {
+    document.getElementById("emoji").style.visibility='visible';
+  }
+}
