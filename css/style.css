@@ -10,14 +10,13 @@ html {
 }
 
 body {
-  background: url("http://www.opengavel.com/wp-content/uploads/2014/06/turquoise-and-pink-wallpaper-9.jpg");
+  background: url("/images/wallpaper.jpg");
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "Roboto", sans-serif;
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: #fafafa;
 }
 
 .navbar .navbar-fixed{
@@ -420,4 +419,16 @@ body {
   .conversation .conversation-container {
     height: calc(100vh - 120px);
   }
+}
+
+/* Panel connection */
+
+.panel {
+  border: none !important;
+  border-radius: 0px !important;
+}
+
+.panel-default {
+  background-color: #008a7c;
+
 }

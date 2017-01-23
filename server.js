@@ -3,17 +3,13 @@ var server = require('http').createServer(app)
 var io = require('socket.io').listen(server)
 var ent = require('ent')
 var fs = require('fs');
-var moment = require('moment');
+
 // var MongoClient = require('mongodb').MongoClient;
 // var url = 'mongodb://localhost:27017/test';
 
 
 app.get('/', function(req, res) {
  res.sendFile(__dirname + '/views/index.html');
-});
-
-app.get('/home', function(req, res) {
-  res.sendFile(__dirname + '/views/home.html');
 });
 
 app.get('/css/style.css', function(req, res) {
@@ -23,6 +19,7 @@ app.get('/css/style.css', function(req, res) {
 app.get('/js/app.js', function(req, res) {
   res.sendFile(__dirname + '/js/app.js');
 });
+
 
 
 io.sockets.on('connection', function(socket) {
