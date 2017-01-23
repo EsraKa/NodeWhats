@@ -21,7 +21,11 @@ body {
 }
 
 .col-md-6 {
-  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  -o-hyphens: auto;
+  hyphens: auto;
 }
 
 .navbar .navbar-fixed{
