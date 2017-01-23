@@ -19,6 +19,14 @@ body {
   height: 100%;
 }
 
+.col-md-6 {
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  -o-hyphens: auto;
+  hyphens: auto;
+}
+
 .navbar .navbar-fixed{
   background-color: transparent;
   box-shadow: inset 0 10px 10px -10px #ffffff;
