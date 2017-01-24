@@ -2,7 +2,6 @@
  * Created by Esra on 20/01/2017.
  */
 var socket = io.connect('http://localhost:8000');
-
 var pseudo = prompt('Quel est votre pseudo ?');
 socket.emit('nouveau_client', pseudo);
 document.title = pseudo + ' - ' + document.title;

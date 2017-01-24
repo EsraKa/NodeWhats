@@ -58,7 +58,7 @@ function createUser(username){
             console.log("Connection established to the database and server");
             database.collection('Users').insertOne({"username": username}, function(err, result) {
                 assert.equal(err, null);
-                console.log("Inserted a user into the Users collection.");
+                console.log(username + " inserted into the Users collection.");
                 database.close();
             });
         }
@@ -75,7 +75,7 @@ function postMessage(username,message,date){
             console.log("Connection established to the database and server");
             database.collection('ChatRoom').insertOne({"username": username,"message":message,"date":date}, function(err, result) {
                 assert.equal(err, null);
-                console.log("Inserted a message inside the ChatRoom collection.");
+                console.log(username + " inserted a message inside the ChatRoom collection.");
                 database.close();
 
             });
@@ -83,8 +83,6 @@ function postMessage(username,message,date){
     });
 
 }
-
-server.listen(3030);
 
 
 
