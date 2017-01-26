@@ -1,7 +1,8 @@
 /**
  * Created by Esra on 20/01/2017.
  */
-var socket = io.connect('http://localhost:8000');
+var socket = io.connect('http://' + document.domain + ':'+ location.port);
+
 var pseudo = prompt('Quel est votre pseudo ?');
 socket.emit('nouveau_client', pseudo);
 document.title = pseudo + ' - ' + document.title;
@@ -10,11 +11,10 @@ document.title = pseudo + ' - ' + document.title;
 socket.on('message', function(data) {
   insereMessage(data.pseudo, data.message)
 
-})
-
-socket.on('nouveau_client', function(pseudo) {
-  $('#zone_users').append('<p>' + pseudo + '</p>');
 });
+
+  $('#zone_users').append('<p>' + pseudo + '</p>');
+
 
 $('#formulaire_chat').submit(function () {
   var text = parseEmoji($('#message').val());
