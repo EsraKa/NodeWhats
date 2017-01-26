@@ -12,10 +12,9 @@ socket.on('message', function(data) {
 
 })
 
-
-//socket.on('nouveau_client', function(pseudo) {
-//  $('#zone_chat').append('<p><em>' + pseudo + ' a rejoint le Chat !</em></p>');
-//})
+socket.on('nouveau_client', function(pseudo) {
+  $('#zone_users').append('<p>' + pseudo + '</p>');
+});
 
 $('#formulaire_chat').submit(function () {
   var text = parseEmoji($('#message').val());
