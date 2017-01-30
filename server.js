@@ -57,11 +57,11 @@ io.sockets.on('connection', function(socket) {
         }
         var Place = 0;
         try{
-            var Stat = fs.statSync('public/upload/' +  Name);
+            var Stat = fs.statSync('public/upload/' +  Name); //try to find the folder
             if(Stat.isFile())
             {
                 Files[Name]['Downloaded'] = Stat.size;
-                Place = Stat.size / 524288;
+                Place = Stat.size / 524288; //(1024 * 1024) /2
             }
         }
         catch(er){} //It's a New File
@@ -73,7 +73,7 @@ io.sockets.on('connection', function(socket) {
             else
             {
                 Files[Name]['Handler'] = fd; //We store the file handler so we can write to it later
-                socket.emit('MoreData', { 'Place' : Place, Percent : 0 });
+                socket.emit('MoreData', { 'Place' : Place, Percent : 0 }); //Create the file
             }
         });
 });
@@ -82,9 +82,9 @@ io.sockets.on('connection', function(socket) {
         var Name = data['Name'];
         Files[Name]['Downloaded'] += data['Data'].length;
         Files[Name]['Data'] += data['Data'];
-        if(Files[Name]['Downloaded'] == Files[Name]['FileSize']) //If File is Fully Uploaded
+        if(Files[Name]['Downloaded'] == Files[Name]['FileSize']) //If the file is fully uploaded
         {   
-            fs.write(Files[Name]['Handler'], Files[Name]['Data'], null, 'Binary', function(err, Writen){
+            fs.write(Files[Name]['Handler'], Files[Name]['Data'], null, 'Binary', function(err, Writen){ //we send the done socket
                 socket.emit('Done', {'Upload' : Name })
             });
         }
