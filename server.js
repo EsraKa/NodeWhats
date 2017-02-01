@@ -24,10 +24,16 @@ app.get('/js/app.js', function(req, res) {
   res.sendFile(__dirname + '/js/app.js');
 });
 
+app.get('/js/video.js', function(req, res) {
+  res.sendFile(__dirname + '/js/video.js');
+});
+
 app.get('/views/video.html', function(req, res) {
   res.sendFile(path.join(__dirname + '/views/video.html'));
 });
 
+
+///// CHAT /////
 io.sockets.on('connection', function(socket) {
 
   socket.on('nouveau_client', function (pseudo) {
@@ -83,7 +89,7 @@ io.sockets.on('connection', function(socket) {
         Files[Name]['Downloaded'] += data['Data'].length;
         Files[Name]['Data'] += data['Data'];
         if(Files[Name]['Downloaded'] == Files[Name]['FileSize']) //If File is Fully Uploaded
-        {   
+        {
             fs.write(Files[Name]['Handler'], Files[Name]['Data'], null, 'Binary', function(err, Writen){
                 socket.emit('Done', {'Upload' : Name })
             });
@@ -107,6 +113,8 @@ io.sockets.on('connection', function(socket) {
 });
 ////// END Upload //////
 
+
+///// VIDEO //////
 var usr = [];
 io.on('connection', function(socket){
 

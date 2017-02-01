@@ -1,5 +1,5 @@
 // Variables used with the upload system
-var SelectedFile; 
+var SelectedFile;
 var FReader;
 
 
@@ -15,7 +15,11 @@ socket.on('message', function(data) {
 
 });
 
-  $('#zone_users').append('<p>' + pseudo + '</p>');
+$('#zone_users').append('<p>' + pseudo + '</p>');
+
+socket.on('nouveau_client', function(pseudo) {
+  $('#zone_users').append('<p>' + pseudo +'</p>');
+});
 
 
 $('#formulaire_chat').submit(function () {
@@ -102,7 +106,7 @@ function clickEmoji() {
 ///// Upload files ////
 function StartUpload(){
     if(document.getElementById('FileBox').value != "")
-    { 
+    {
         FReader = new FileReader();
         Name = SelectedFile.name;
 
@@ -112,7 +116,7 @@ function StartUpload(){
         document.getElementById('UploadArea').innerHTML = Content;
         FReader.onload = function(evnt){
             socket.emit('Uploading', { 'Name' : Name, Data : evnt.target.result });
-        }
+        };
         socket.emit('StartUpload', { 'Name' : Name, 'Size' : SelectedFile.size });
     }
     else {
@@ -123,8 +127,8 @@ function StartUpload(){
 
 window.addEventListener("load", Ready); //Once the page is loaded.
 
-function Ready(){ 
-    if(window.File && window.FileReader){ //These are the relevant HTML5 objects that we are going to use 
+function Ready(){
+    if(window.File && window.FileReader){ //These are the relevant HTML5 objects that we are going to use
         document.getElementById('FileBox').addEventListener('change', FileChosen);
     }
     else {
@@ -147,7 +151,7 @@ socket.on('MoreData', function (data){
   UpdateBar(data['Percent']);
   var Place = data['Place'] * 524288; //The Next Blocks Starting Position
   var NewFile; //The Variable that will hold the new Block of Data
-  if(SelectedFile.slice) 
+  if(SelectedFile.slice)
       NewFile = SelectedFile.slice(Place, Place + Math.min(524288, (SelectedFile.size-Place)));
   else
       NewFile = SelectedFile.slice(Place, Place + Math.min(524288, (SelectedFile.size-Place)));
@@ -159,5 +163,5 @@ socket.on('Done', function (data){
     document.getElementById('message').value = 'http://' + document.domain + ':'+ location.port + "/" + data['Upload'];
 
     document.getElementById("UploadArea").innerHTML = '<label for="FileBox">Choisissez un fichier à partager : </label><input type="file" id="FileBox"><br><button  type="button" id="UploadButton" class="Button" onclick="StartUpload()">Partager</button>';
-    document.querySelector('#FileBox').addEventListener('change', FileChosen); //To fix a bug. 
+    document.querySelector('#FileBox').addEventListener('change', FileChosen); //To fix a bug.
 });
