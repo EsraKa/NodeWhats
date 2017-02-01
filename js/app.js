@@ -5,37 +5,81 @@ var FReader;
 
 var socket = io.connect('http://' + document.domain + ':'+ location.port);
 
+// Getting new client username/pseudo
 var pseudo = prompt('Quel est votre pseudo ?');
+
+// Sending the username to the server
 socket.emit('nouveau_client', pseudo);
+
 document.title = pseudo + ' - ' + document.title;
 
 
-socket.on('message', function(data) {
-  insereMessage(data.pseudo, data.message)
+socket.on('insert_messages', function(messages) {
+    $('#zone_chat').empty();
+    for (var m in messages) {
+        insertMessage(messages[m]['pseudo'], messages[m]['message']);
+
+    }
 
 });
 
-  $('#zone_users').append('<p>' + pseudo + '</p>');
+socket.on('insert_message', function(messages) {
+    $('#zone_chat').empty();
+    for (var m in messages) {
+        insertMessage(messages[m]['pseudo'], messages[m]['message']);
 
+    }
+});
+
+socket.on('append_users', function (connectedUsers) {
+    $('#zone_users').empty();
+    if (pseudo != null) {
+        // Appending new client to our users section
+        insertUser(connectedUsers);
+
+    }
+});
+
+socket.on('append_user', function (connectedUsers) {
+    $('#zone_users').empty();
+    if (pseudo != null) {
+        // Appending new client to our users section
+        insertUser(connectedUsers);
+    }
+});
 
 $('#formulaire_chat').submit(function () {
-  var text = parseEmoji($('#message').val());
-  var time = getTime();
-  var message = time + " " + text;
 
-  if ($('#message').val()) { //prevent to send empty messages
-    socket.emit('message', message);
-    insereMessage(pseudo, message);
-    $('#message').val('').focus();
-    window.scrollTo(0,document.body.scrollHeight); //scroll to the bottom of the page
+    //Formatting he text message with the date of creation
+    var text = parseEmoji($('#message').val());
+    var time = getTime();
+    var message = time + " " + text;
+
+    //prevent to send empty messages
+    if ($('#message').val()) {
+
+        socket.emit('new_message', {
+            pseudo: pseudo,
+            message: message
+        });
+
+        // Cleaning up the #message input field after sending the message
+        $('#message').val('').focus();
+        window.scrollTo(0,document.body.scrollHeight); //scroll to the bottom of the page
+        return false;
+    }
     return false;
-  }
-  return false;
 });
 
-function insereMessage(pseudo, message) {
+function insertMessage(pseudo, message) {
 
   $('#zone_chat').append(' <div class="row"><div class="col-md-6" style="background: #fff; border-radius: 0px 5px 5px 5px;padding-top: 5px; margin-top: 10px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; margin-left: 5px;">' + pseudo + '<br> ' + message +' </div> <div class="col-md-6"> </div></div></br>');
+}
+
+function insertUser(connectedUsers){
+    for (var u in connectedUsers) {
+        $('#zone_users').append('<p>' + connectedUsers[u]['pseudo'] + '</p>');
+    }
 }
 
 function parseEmoji(message) { //Emoji system that parse the entered text, to replace some text by an emoji
@@ -58,6 +102,8 @@ function parseEmoji(message) { //Emoji system that parse the entered text, to re
 }
 
 function getTime() {
+
+    // Getting the current date at the time the message is sent
   var time = new Date();
   var text = '[' + addZero(time.getHours())+':'+addZero(time.getMinutes())+':'+addZero(time.getSeconds()) + ']';
   return text;

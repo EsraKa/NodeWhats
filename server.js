@@ -9,6 +9,8 @@ var ent = require('ent');
 var path = require('path');
 var fs = require('fs');
 var mongoConn = require('./js/MongoConn');
+var connectedUsers = [];
+var chatMessages = [];
 
 var Files = {};
 
@@ -30,21 +32,65 @@ app.get('/views/video.html', function(req, res) {
 
 io.sockets.on('connection', function(socket) {
 
-  socket.on('nouveau_client', function (pseudo) {
-    pseudo = ent.encode(pseudo);
-    socket.pseudo = pseudo;
-    socket.broadcast.emit('nouveau_client', pseudo);
-    mongoConn.createUser(pseudo)
-  });
 
-  socket.on('message', function (message) {
-    message = ent.encode(message);
-    socket.broadcast.emit('message', {
-      pseudo: socket.pseudo,
-      message: message
+    ////// OBSERVE for new clients //////
+    socket.on('nouveau_client', function (pseudo) {
+        connectedUsers = [];
+        chatMessages = [];
+
+        // CREATE a user
+        mongoConn.createUser(pseudo, function () {
+            pseudo = ent.encode(pseudo);
+            socket.pseudo = pseudo;
+
+        // GET all the messages of the ChatRoom
+
+            mongoConn.getMessages(function (messages) {
+            chatMessages = messages
+            socket.emit('insert_message',chatMessages);
+            });
+
+        // GET all the users inside the chatRoom
+        mongoConn.getUsers(function (users) {
+            connectedUsers = users;
+            socket.broadcast.emit('append_users', connectedUsers);
+            socket.emit('append_user', connectedUsers);
+
+            });
+        });
+
     });
-    mongoConn.postMessage(socket.pseudo,message)
-  });
+
+
+
+    ////// OBSERVE for new messages //////
+    socket.on('new_message', function (insertedMessage) {
+        mongoConn.postMessage(ent.encode(insertedMessage.pseudo),insertedMessage.message, function () {
+            chatMessages = [];
+            mongoConn.getMessages(function (messages) {
+                chatMessages = messages
+                socket.broadcast.emit('insert_messages',chatMessages);
+                socket.emit('insert_message',chatMessages);
+            });
+        });
+
+    });
+
+    ////// REMOVE client from Chatroom on disconnect //////
+    socket.on('disconnect', function () {
+        connectedUsers = [];
+
+        mongoConn.removeUser(socket.pseudo, function () {
+            mongoConn.getUsers(function (users) {
+                connectedUsers = users;
+                console.log(socket.pseudo + " disconnected");
+                socket.broadcast.emit('append_users', connectedUsers);
+                //socket.emit('append_user', connectedUsers);
+
+            });
+        });
+    });
+
 
 
   ////// BEGIN Upload //////
