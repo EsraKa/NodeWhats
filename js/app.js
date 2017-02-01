@@ -14,14 +14,6 @@ socket.emit('nouveau_client', pseudo);
 document.title = pseudo + ' - ' + document.title;
 
 
-socket.on('insert_messages', function(messages) {
-    $('#zone_chat').empty();
-    for (var m in messages) {
-        insertMessage(messages[m]['pseudo'], messages[m]['message']);
-
-    }
-
-});
 
 socket.on('insert_message', function(messages) {
     $('#zone_chat').empty();
@@ -32,14 +24,6 @@ socket.on('insert_message', function(messages) {
 });
 
 
-socket.on('append_users', function (connectedUsers) {
-    $('#zone_users').empty();
-    if (pseudo != null) {
-        // Appending new client to our users section
-        insertUser(connectedUsers);
-
-    }
-});
 
 socket.on('append_user', function (connectedUsers) {
     $('#zone_users').empty();
@@ -188,9 +172,6 @@ function UpdateBar(percent){ //refresh the progress bar during the upload
 socket.on('MoreData', function (data){ //send more data
   UpdateBar(data['Percent']);
 
-  var Place = data['Place'] * 524288; //The Next Blocks Starting Position
-  var NewFile; //The Variable that will hold the new Block of Data
-  if(SelectedFile.slice)
   var Place = data['Place'] * 524288; //The next blocks starting position
   var NewFile; //The variable that will hold the new block of data
   if(SelectedFile.slice)
