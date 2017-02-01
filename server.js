@@ -67,8 +67,6 @@ io.sockets.on('connection', function(socket) {
 
     });
 
-    mongoConn.postMessage(socket.pseudo, message)
-  });
 
 
 
@@ -165,7 +163,7 @@ io.sockets.on('connection', function(socket) {
 
     }
   });
-
+});
 ////// END Upload //////
 
 
@@ -190,5 +188,6 @@ io.on('connection', function(socket){
   socket.on('disconnect', function () {
     //TODO
   });
+
 });
   server.listen(8000);
